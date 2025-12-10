@@ -6,6 +6,7 @@ import RegisterPage from "./pages/RegisterPage";
 import LoginPage from "./pages/LoginPage";
 import TaskPage from "./pages/TaskPage";
 import ProjectDetailsPage from "./pages/ProjectDetailsPage";
+import AuthenticatedRoute from "./components/AuthenticatedRoute";
 
 function App() {
   return (
@@ -17,11 +18,29 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/login" element={<LoginPage />} />
-          <Route path="/projects" element={<ProjectsPage />} />
-          <Route path="/projects/:projectId" element={<ProjectDetailsPage />} />
+          <Route
+            path="/projects"
+            element={
+              <AuthenticatedRoute>
+                <ProjectsPage />
+              </AuthenticatedRoute>
+            }
+          />
+          <Route
+            path="/projects/:projectId"
+            element={
+              <AuthenticatedRoute>
+                <ProjectDetailsPage />
+              </AuthenticatedRoute>
+            }
+          />
           <Route
             path="/projects/:projectId/tasks/:taskId"
-            element={<TaskPage />}
+            element={
+              <AuthenticatedRoute>
+                <TaskPage />
+              </AuthenticatedRoute>
+            }
           />
         </Routes>
       </div>

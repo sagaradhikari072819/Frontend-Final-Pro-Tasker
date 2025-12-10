@@ -11,10 +11,15 @@ function ProjectDetailsPage() {
 
   const [tasks, setTasks] = useState<Task[]>([]);
   const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
+  const [dpp, setDpp] = useState("");
 
+  const [name, setName] = useState('');
+  const [dpt, setDpt] = useState('')
+  const [status, setStatus] = useState("todo");
+    
   const { projectId } = useParams();
 
+  //projects info
   useEffect(() => {
     const fetchProjectDetails = async () => {
       try {
@@ -22,6 +27,9 @@ function ProjectDetailsPage() {
         const res = await apiClient.get(`/api/projects/${projectId}`);
         console.log(res.data);
         setProject(res.data);
+
+        setName(res.data.name);
+        setDpt(res.data.dpt)
       } catch (error: any) {
         console.log(error);
         setError(error.message);
@@ -50,7 +58,7 @@ function ProjectDetailsPage() {
 
   if (loading) return <div className="text-3xl text-white">Loading...</div>;
 
-  if (error) return <div className="text-3xl text-white">{error}</div>;
+  if (error) return <div className="text-3xl text-red">{error}</div>;
 
   // create a task
   const handleSubmit = async (e: React.FormEvent) => {
@@ -58,7 +66,8 @@ function ProjectDetailsPage() {
     try {
       const res = await apiClient.post(`/api/projects/${projectId}/tasks`, {
         title,
-        description,
+        description: dpt,
+        status,
       });
       setTasks((prev) => [...prev, res.data]);
     } catch (error: any) {
@@ -66,16 +75,41 @@ function ProjectDetailsPage() {
       setError(error.message);
     } finally {
       setTitle("");
-      setDescription("");
+      setDpt("");
+      setStatus("")
     }
   };
 
-  //const updateProject = async (e: React.FormEvent) => {};
+  const updateProject = async () => {
+    try {
+      const res = await apiClient.put(`/api/projects/${projectId}`, {
+        name,  dpp
+      })
+      setProject(res.data)
+      alert("project has updated")
+    } catch (error) {
+      console.error(error)
+    }
+  }
 
-  //const deleteProject = async (e: React.FormEvent) => {};
+  const deleteProject = async () => {
+    if (!confirm("DELETE PROJECT????"))
+      return;
+    try {
+      const res = await apiClient.delete(`/api/projects/${projectId}`)
+      console.log(res.data);
+
+      alert("Project Deleted")
+      
+    } catch (error) {
+      console.error(error)
+    }
+    
+  }
+
   return (
     <div className="text-white">
-      <h1 className="text-4xl">Project Details</h1>
+      {/* <h1 className="text-4xl">Project Details</h1>
 
       <div className="mt-10">
         <div className="text-3xl">{project?.name}</div>
@@ -84,11 +118,54 @@ function ProjectDetailsPage() {
       <div className="flex gap-3 my-4">
         <CommonButton label="Update" color="blue" onClick={() => {}} />
         <CommonButton label="Delete" color="red" onClick={() => {}} />
+      </div> */}
+
+       <div className="text-white max-w-xl mx-auto mt-10 p-6 border rounded-lg shadow-lg">
+          <h1 className="text-4xl">Project Details</h1>
+        <div>
+          <label className="block text-gray-300 mb-1">Name</label>
+          <input
+            className="w-full p-2 rounded bg-gray-900 border border-black-700 text-white"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
+        </div>
+
+        <div>
+          <label className="block text-gray-300 mb-1">Description</label>
+          <textarea
+            className="w-full p-2 rounded bg-gray-900 border border-black-700 text-white"
+            rows={3}
+            value={dpp}
+            onChange={(e) => setDpp(e.target.value)}
+          ></textarea>
+        </div>
+
+        <div className="flex gap-3 my-3">
+          <CommonButton
+            label="Update Project"
+            color="blue"
+            onClick={updateProject}
+          />
+          <CommonButton
+            label="Delete Project"
+            color="red"
+            onClick={deleteProject}
+          />
+          <Link
+            to={`/projects`}
+            className="inline-block mb-4 px-4 py-2 bg-gray-700 rounded"
+          >
+            Back to Projects
+          </Link>
+        </div>
       </div>
+
       <form
         onSubmit={handleSubmit}
         className="border p-2 h-50 mt-10 flex flex-col gap-2 rounded"
       >
+
         <label htmlFor="project-name">Task Title: </label>
         <input
           type="text"
@@ -103,8 +180,16 @@ function ProjectDetailsPage() {
           type="text"
           name="task-description"
           className="border"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
+          value={dpt}
+          onChange={(e) => setDpt(e.target.value)}
+        />
+          <label htmlFor="task-status">Task Status</label>
+        <input
+          type="text"
+          name="task-status"
+          className="border"
+          value={status}
+          onChange={(e) => setStatus(e.target.value)}
         />
         <input
           type="submit"

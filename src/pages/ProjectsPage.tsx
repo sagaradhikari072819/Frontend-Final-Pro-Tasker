@@ -73,11 +73,13 @@ function ProjectsPage() {
           onChange={(e) => setDescription(e.target.value)}
         />
 
-        <input
+        {/* <input
           type="submit"
           value="Create Project"
           className="mt-auto bg-sky-500 rounded"
-        />
+        /> */}
+          <button className="bg-sky-500 px-4 py-2 rounded w-full mt-5 mb-5"> Create Project
+        </button>
       </form>
 
       {error && <div>{error}</div>}

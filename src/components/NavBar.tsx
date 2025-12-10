@@ -6,7 +6,9 @@ function NavBar() {
   const { logout, isAuthenticated } = useContext(AuthContext);
   return (
     <nav className="text-white flex justify-between w-full">
+
       <NavLink to="/">Home</NavLink>
+      
       <NavLink to="/projects">Projects</NavLink>
       {/* <NavLink to='/register'>Register</NavLink>*/}
      

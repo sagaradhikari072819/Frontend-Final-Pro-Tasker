@@ -21,7 +21,7 @@ function LoginPage() {
         <input name="email" placeholder="Email" onChange={handleChange} required className="w-full p-3 border rounded"/>
         <input type="password" name="password" placeholder="Password" onChange={handleChange} required className="w-full p-3 border rounded"/>
 
-        <button className="w-full p-3 bg-blue-600 text-white rounded">
+        <button className="w-full p-3 bg-green-600 text-white rounded">
           Login
         </button>
       </form>
