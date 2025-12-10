@@ -16,7 +16,7 @@ function ProjectsPage() {
       try {
         setLoading(true);
         const res = await apiClient.get("/api/projects");
-        console.log(res.data);
+       // console.log(res.data);
         setProjects(res.data);
       } catch (error: any) {
         console.log(error);

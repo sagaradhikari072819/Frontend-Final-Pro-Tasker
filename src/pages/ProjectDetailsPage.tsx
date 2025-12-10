@@ -9,11 +9,9 @@ function ProjectDetailsPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-    const [tasks, setTasks] = useState<Task[]>([]);
+  const [tasks, setTasks] = useState<Task[]>([]);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-
- 
 
   const { projectId } = useParams();
 
@@ -24,7 +22,7 @@ function ProjectDetailsPage() {
         const res = await apiClient.get(`/api/projects/${projectId}`);
         console.log(res.data);
         setProject(res.data);
-      } catch (error:any) {
+      } catch (error: any) {
         console.log(error);
         setError(error.message);
       } finally {
@@ -35,29 +33,26 @@ function ProjectDetailsPage() {
     fetchProjectDetails();
   }, [projectId]);
 
-
-  // Another useEfect for tasks
-useEffect(() => {
+  // Another useEffect for tasks
+  useEffect(() => {
     const fetchProjectTasks = async () => {
-        try {
-            const tasks = await apiClient.get(`/api/projects/${projectId}/tasks`);
-            // state
-            setTasks(res.data)
-            // loading error
-        } catch (error) {
-            console.error(error);
-            
-        }
-    }
-     fetchProjectTasks()
-  }, [projectId])
-       
+      try {
+        const tasks = await apiClient.get(`/api/projects/${projectId}/tasks`);
+        // state
+        setTasks(tasks.data);
+        // loading error
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchProjectTasks();
+  }, [projectId]);
 
-if (loading) return <div className="text-3xl text-white">Loading...</div>;
+  if (loading) return <div className="text-3xl text-white">Loading...</div>;
 
-if (error) return <div className="text-3xl text-white">{error}</div>;
+  if (error) return <div className="text-3xl text-white">{error}</div>;
 
-// create a task
+  // create a task
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
@@ -66,7 +61,7 @@ if (error) return <div className="text-3xl text-white">{error}</div>;
         description,
       });
       setTasks((prev) => [...prev, res.data]);
-    } catch (error) {
+    } catch (error: any) {
       console.error(error);
       setError(error.message);
     } finally {
@@ -75,9 +70,9 @@ if (error) return <div className="text-3xl text-white">{error}</div>;
     }
   };
 
-  const updateProject = async (e: React.FormEvent) => {};
+  //const updateProject = async (e: React.FormEvent) => {};
 
-  const deleteProject = async (e: React.FormEvent) => {};
+  //const deleteProject = async (e: React.FormEvent) => {};
   return (
     <div className="text-white">
       <h1 className="text-4xl">Project Details</h1>
@@ -90,7 +85,7 @@ if (error) return <div className="text-3xl text-white">{error}</div>;
         <CommonButton label="Update" color="blue" onClick={() => {}} />
         <CommonButton label="Delete" color="red" onClick={() => {}} />
       </div>
-       <form
+      <form
         onSubmit={handleSubmit}
         className="border p-2 h-50 mt-10 flex flex-col gap-2 rounded"
       >
@@ -121,13 +116,12 @@ if (error) return <div className="text-3xl text-white">{error}</div>;
         </button> */}
       </form>
 
-       <div>
+      {/* <div>
         <Link to="/projects" className="mt-auto bg-sky-500 rounded px-3 py-1">
           Back to Projects
         </Link>
-      </div>
+      </div> */}
 
-    
       <div className="w-full flex gap-5 mt-10">
         {tasks &&
           tasks.map((task) => (
@@ -141,7 +135,7 @@ if (error) return <div className="text-3xl text-white">{error}</div>;
                 to={`/projects/${projectId}/tasks/${task._id}`}
                 className="mt-auto bg-sky-500 rounded"
               >
-                Back to Projects
+                View Task
               </Link>
             </div>
           ))}
