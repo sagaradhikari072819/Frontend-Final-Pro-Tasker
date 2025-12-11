@@ -48,18 +48,31 @@ function ProjectsPage() {
     }
   };
   return (
-    <div className="text-white">
-      <h1 className="text-4xl font-bold text-white">Projects</h1>
+    <div className="text-cyan-300 min-h-screen p-6">
+      <h1 className="   text-4xl font-bold mb-6 
+      tracking-wider 
+      [text-shadow:_0_0_12px_rgba(0,255,255,0.8)]
+      border-b border-cyan-500/40 pb-2">Projects</h1>
 
       <form
         onSubmit={handleSubmit}
-        className=" border p-2 h-50 mt-10 flex flex-col gap-2 rounded"
+        className="  w-full max-w-md 
+      border border-cyan-500/40 
+      p-4 rounded-lg 
+      bg-black/40 
+      backdrop-blur-md 
+      flex flex-col gap-3
+      shadow-[0_0_20px_rgba(0,255,255,0.25)]"
       >
         <label htmlFor="project-name">Project Name: </label>
         <input
           type="text"
           name="project-name"
-          className="border"
+          className="   w-full p-2 rounded 
+        bg-black border border-cyan-500/60 
+        text-cyan-300 
+        focus:outline-none 
+        focus:ring-2 focus:ring-cyan-500/60"
           value={name}
           onChange={(e) => setName(e.target.value)}
         />
@@ -68,7 +81,11 @@ function ProjectsPage() {
         <input
           type="text"
           name="project-description"
-          className="border"
+          className="  w-full p-2 rounded 
+        bg-black border border-cyan-500/60 
+        text-cyan-300 
+        focus:outline-none 
+        focus:ring-2 focus:ring-cyan-500/60"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
         />
@@ -78,24 +95,43 @@ function ProjectsPage() {
           value="Create Project"
           className="mt-auto bg-sky-500 rounded"
         /> */}
-          <button className="bg-sky-500 px-4 py-2 rounded w-full mt-5 mb-5"> Create Project
+          <button className=" w-full mt-4 p-3 
+        bg-black 
+        text-cyan-300 
+        rounded 
+        border border-cyan-500/60 
+        hover:bg-cyan-500/20 
+        transition 
+        [text-shadow:_0_0_10px_rgba(0,255,255,0.9)]
+        focus:outline-none 
+        focus:ring-2 focus:ring-cyan-500/60"> Create Project
         </button>
       </form>
 
-      {error && <div>{error}</div>}
+      {error && <div className="text-red-400 mt-4">{error}</div>}
 
-      <div className="w-full flex gap-5 mt-10">
+      <div className="w-full flex flex-wrap gap-5 mt-10">
         {projects &&
           projects.map((project) => (
             <div
               key={project._id}
-              className="text-white w-50 flex flex-col h-50 border border-red-500 p-2 text-center rounded"
+              className=" w-60 flex flex-col p-4 rounded 
+            bg-black/40 backdrop-blur-md 
+            border border-cyan-500/40 
+            text-center text-cyan-300 
+            shadow-[0_0_15px_rgba(0,255,255,0.25)]"
             >
-              <div className="font-bold">{project.name}</div>
-              <div>{project.description}</div>
+              <div className="font-bold text-lg mb-2">{project.name}</div>
+              <div className="mb-4">{project.description}</div>
               <Link
                 to={`/projects/${project._id}`}
-                className="mt-auto bg-sky-500 rounded"
+                className="mt-auto p-2 rounded 
+              bg-black 
+              border border-cyan-500/60 
+              text-cyan-300 
+              hover:bg-cyan-500/20 
+              transition 
+              [text-shadow:_0_0_8px_rgba(0,255,255,0.9)]"
               >
                 See Project
               </Link>

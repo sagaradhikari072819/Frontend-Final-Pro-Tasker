@@ -56,9 +56,9 @@ function ProjectDetailsPage() {
     fetchProjectTasks();
   }, [projectId]);
 
-  if (loading) return <div className="text-3xl text-white">Loading...</div>;
+  if (loading) return <div className="text-2xl text-blue-300">Loading...</div>;
 
-  if (error) return <div className="text-3xl text-red">{error}</div>;
+  if (error) return <div className="text-red-500 text-xl">{error}</div>;
 
   // create a task
   const handleSubmit = async (e: React.FormEvent) => {
@@ -108,22 +108,12 @@ function ProjectDetailsPage() {
   }
 
   return (
-    <div className="text-white">
-      {/* <h1 className="text-4xl">Project Details</h1>
+    <div className="min-h-screen p-6 bg-black text-blue-300">
 
-      <div className="mt-10">
-        <div className="text-3xl">{project?.name}</div>
-        <div className="text-xl">{project?.description}</div>
-      </div>
-      <div className="flex gap-3 my-4">
-        <CommonButton label="Update" color="blue" onClick={() => {}} />
-        <CommonButton label="Delete" color="red" onClick={() => {}} />
-      </div> */}
-
-       <div className="text-white max-w-xl mx-auto mt-10 p-6 border rounded-lg shadow-lg">
-          <h1 className="text-4xl">Project Details</h1>{project &&(
+       <div className="min-h-screen p-6 bg-black text-blue-300">
+          <h1 className="ax-w-xl mx-auto space-y-6 text-3xl">Project Details</h1>{project &&(
         <div>
-          <label className="block text-gray-300 mb-1">Name</label>
+          <label className="block text-gray-300 mb-1 text-2xl">Name</label>
           <input
             className="w-full p-2 rounded bg-gray-900 border border-black-700 text-white"
             value={name}
@@ -132,7 +122,7 @@ function ProjectDetailsPage() {
         </div>)}
 
         <div>
-          <label className="block text-gray-300 mb-1">Description</label>
+          <label className="block text-gray-300 mb-1 text-2xl">Description</label>
           <textarea
             className="w-full p-2 rounded bg-gray-900 border border-black-700 text-white"
             rows={3}
