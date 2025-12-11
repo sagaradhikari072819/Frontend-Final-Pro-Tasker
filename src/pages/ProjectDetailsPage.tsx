@@ -29,7 +29,7 @@ function ProjectDetailsPage() {
         setProject(res.data);
 
         setName(res.data.name);
-        setDpt(res.data.dpt)
+        setDpp(res.data.description)
       } catch (error: any) {
         console.log(error);
         setError(error.message);
