@@ -5,7 +5,7 @@ import type { Project, Task } from "../types";
 import CommonButton from "../components/CommonButtons";
 
 function ProjectDetailsPage() {
-  const [project, setProject] = useState<Project | null>(null);
+  const [project , setProject] = useState<Project | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
@@ -121,7 +121,7 @@ function ProjectDetailsPage() {
       </div> */}
 
        <div className="text-white max-w-xl mx-auto mt-10 p-6 border rounded-lg shadow-lg">
-          <h1 className="text-4xl">Project Details</h1>
+          <h1 className="text-4xl">Project Details</h1>{project &&(
         <div>
           <label className="block text-gray-300 mb-1">Name</label>
           <input
@@ -129,7 +129,7 @@ function ProjectDetailsPage() {
             value={name}
             onChange={(e) => setName(e.target.value)}
           />
-        </div>
+        </div>)}
 
         <div>
           <label className="block text-gray-300 mb-1">Description</label>
